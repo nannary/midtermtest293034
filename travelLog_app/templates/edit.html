@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block content %}
+<div
+  class="container-fluid my-3 justify-content-center align-items-center shadow rounded"
+>
+  {% comment %} {{ form.as_p }} {% endcomment %}
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="progress">
+      <div
+        class="progress-bar bg-dark progress-bar-striped"
+        style="width: 100%"
+      ></div>
+    </div>
+    <p></p>
+    <h1>
+      แก้ไขข้อมูลสถานที่ท่องเที่ยว
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      />
+      <span class="material-symbols-outlined"> medication_liquid </span>
+    </h1>
+    <div class="mb-3">
+      รหัส
+      <input
+        type="text"
+        name="id"
+        class="form-control"
+        value="{{ place_data.place_id }}"
+        disabled
+      />
+    </div>
+    <div class="mb-3">
+      ชื่อ
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        value="{{ place_data.name }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      ที่อยู่
+      <input
+        type="text"
+        name="location"
+        class="form-control"
+        value="{{ place_data.location }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      รายละเอียด
+      <textarea name="description" class="form-control" required>
+{{ place_data.description }}</textarea
+      >
+    </div>
+    <div class="mb-3">
+      เวลาเปิด
+      <input
+        type="time"
+        name="opening_hours"
+        class="form-control"
+        value="{{ place_data.opening_hours|time:'H:i' }}"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      เวลาปิด
+      <input
+        type="time"
+        name="closing_hours"
+        class="form-control"
+        value="{{ place_data.closing_hours|time:'H:i' }}"
+        required
+      />
+    </div>
+    <div>
+        <img src="{{ place_data.image.url }}" style="width:300px" alt="...">
+    </div>
+    <div class="mb-3">
+      รูปภาพใหม่
+      <input type="file" name="image" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-dark w-100 mb-3">บันทึก</button>
+  </form>
+</div>
+{% endblock %}

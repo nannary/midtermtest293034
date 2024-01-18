@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="mt-2 p-1 bg-dark text-white rounded">
+  <div class="progress">
+    <div class="progress-bar bg-dark progress-bar-striped" style="width:100%"></div>
+  </div>
+    <h5>จัดการข้อมูลสถานที่ท่องเที่ยว</h5>
+    <div class="progress">
+      <div class="progress-bar bg-dark progress-bar-striped" style="width:100%"></div>
+    </div>
+  </div>
+
+<div class="container-fluid my-3 justify-content-center align-items-center shadow rounded">
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th><div class="cold-block d-sm-none">
+              No.
+            </div><div class="col d-none d-sm-block">
+              ลำดับ
+            </div></th>
+            <th>ภาพ</th>
+            <th>ชื่อ</th>
+            <th>ที่อยู่</th>
+            <th>รายละเอียด</th>
+            <th><div class="cold-block d-sm-none">
+                Expired
+              </div>
+              <div class="col d-none d-sm-block">
+                วันหมดอายุ
+              </div>
+            </th>
+            <th>เครื่องมือ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in Placedata %}
+        <tr>
+            <td>{{i.place_id}}</td>
+            <td><img src="{{ i.image.url }}" style="width:100px" alt="..."></td>
+            <td>{{i.name}}</td>
+            <td>{{i.location}}</td>
+            <td>{{i.opening_hours}}</td>
+            <td>{{i.closing_hours}}</td>
+            <td> {% comment %} ปุ่มแก้ไข และ ลบ จะกลายเป็นไอคอนไม่จอลดขนาดลง {% endcomment %}
+              <div class="cold-block d-sm-none">
+                <a href="edit/{{i.place_id}}" class="btn btn-warning"><i class="fa fa-gear" aria-hidden="true"></i><a/>
+                  <a href="#" class="btn btn-danger" data-bs-toggle="modal" 
+                  data-bs-target="#deleteConfirmationModal" 
+                  onclick="setDeleteUrl('delete/{{i.place_id}}')">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+              </div><div class="col d-none d-sm-block">
+                <a href="edit/{{i.place_id}}" class="btn btn-outline-warning">แก้ไข<a/>
+                  <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" 
+                  data-bs-target="#deleteConfirmationModal" 
+                  onclick="setDeleteUrl('delete/{{i.place_id}}')">
+                  ลบ
+                    </a>
+              </div>
+              </td>{% comment %} ปุ่มแก้ไข และ ลบ จะกลายเป็นไอคอนไม่จอลดขนาดลง {% endcomment %}
+        </tr>
+        {% endfor %}
+    </tbody>
+{% comment %} โมดอล Modal แจ้งเตือน ก่อนทำการลบข้อมูล {% endcomment %}
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmationModalLabel">ยืนยันการลบ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>คุณต้องการลบข้อมูล?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+          <a id="deleteButton" href="#" class="btn btn-outline-danger">ลบ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script> 
+    function setDeleteUrl(url) {
+      document.getElementById('deleteButton').href = url;
+    }
+  </script>
+{% comment %} โมดอล Modal แจ้งเตือน ก่อนทำการลบข้อมูล {% endcomment %}
+</div>
+{% endblock  %}

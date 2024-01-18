@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+{% for x in Placedata %}
+  <div class="card mb-5 col-md-3 col-lg-7 mx-auto">
+    <img src="{{ x.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h3 class="card-title"><i class="fa-solid fa-location-dot me-2"></i>{{x.name}}</h3>
+      <p class="card-text">{{x.description}}</p>
+      <p class="card-text">{{x.location}}</p>
+      <p class="card-text">เวลาทำการ {{x.opening_hours}} - {{x.closing_hours}}</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+{% endfor %}
+
+</div>
+{% endblock content %}
